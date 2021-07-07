@@ -16,15 +16,17 @@ class MainActivity : AppCompatActivity() {
 
         image = findViewById(R.id.image)
 
-        val imageUrl = URL("https://wallpaperplay.com/walls/full/1/c/7/38027.jpg")
+        Thread {
+            val imageUrl = URL("https://wallpaperplay.com/walls/full/1/c/7/38027.jpg")
 
-        val connection = imageUrl.openConnection() as HttpURLConnection
-        connection.doInput = true
-        connection.connect()
+            val connection = imageUrl.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
 
-        val inputStream = connection.inputStream
-        val bitmap = BitmapFactory.decodeStream(inputStream)
+            val inputStream = connection.inputStream
+            val bitmap = BitmapFactory.decodeStream(inputStream)
 
-        image.setImageBitmap(bitmap)
+            image.setImageBitmap(bitmap)
+        }.start()
     }
 }
