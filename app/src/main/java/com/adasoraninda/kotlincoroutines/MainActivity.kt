@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             val inputStream = connection.inputStream
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
-            runOnUiThread {
+            withContext(Dispatchers.Main) {
                 Log.d("TaskThread", Thread.currentThread().name)
                 image.setImageBitmap(bitmap)
             }
