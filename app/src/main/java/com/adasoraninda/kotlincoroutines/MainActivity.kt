@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val mainLooper = mainLooper
 
-        Thread {
+        GlobalScope.launch {
             val imageUrl = URL("https://wallpaperplay.com/walls/full/1/c/7/38027.jpg")
 
             val connection = imageUrl.openConnection() as HttpURLConnection
@@ -32,6 +34,6 @@ class MainActivity : AppCompatActivity() {
             Handler(mainLooper).post {
                 image.setImageBitmap(bitmap)
             }
-        }.start()
+        }
     }
 }
