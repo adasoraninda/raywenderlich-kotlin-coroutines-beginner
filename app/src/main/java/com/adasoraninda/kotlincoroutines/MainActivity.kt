@@ -2,6 +2,7 @@ package com.adasoraninda.kotlincoroutines
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import java.net.HttpURLConnection
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 
         image = findViewById(R.id.image)
 
+        val mainLooper = mainLooper
+
         Thread {
             val imageUrl = URL("https://wallpaperplay.com/walls/full/1/c/7/38027.jpg")
 
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             val inputStream = connection.inputStream
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
-            runOnUiThread {
+            Handler(mainLooper).post {
                 image.setImageBitmap(bitmap)
             }
         }.start()
